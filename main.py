@@ -14,6 +14,6 @@ if (re.search("([1-9]*[a-z]?[+-])*[1-9]+[a-z]+=[1-9]+",sys.argv[1])):
         coeff.append(int(re.findall("[0-9]+", match)[0]))
         coeffNames.append(re.findall("[a-z]+", match)[0])
     rhs=int(re.findall("[1-9]+",re.findall("=[1-9]+",sys.argv[1])[0])[0])
-    print(imp.BruteForce(len(coeff)-1,list(reversed(coeff)),rhs))
+    print(imp.Memoization(len(coeff)-1,list(reversed(coeff)),rhs))
 else:
     print("Bad parameter: The ecuation has not a valid format")
