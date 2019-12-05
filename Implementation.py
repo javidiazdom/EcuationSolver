@@ -32,15 +32,27 @@ def Tabulation(n,coeff,rhs):
       else:
          return table[x][y]
 
-   for i in range (0,n+1):
+   for i in range (0,n+2):
       table.append([])
       for j in range (0,rhs+1):
          table[i].append(0)
       table[i][0] = 1
    
-   for k in range (1, n+1):
+   for k in range (1, n+2):
       for r in range (1, rhs+1):
          for i in range (0,rhs+1):
-            table[k][r] += accessTable(k-1,r - i*coeff[k])
-   print(table)
-   return table[n][rhs]
+            table[k][r] += accessTable(k-1,r - i*coeff[k-1])
+   return table[n+1][rhs]
+
+def BruteForceIterator(n,coeff,rhs):
+   solutionCount = 0
+   for i,j,k in range (0,rhs):
+      res
+      if (coeff[0]) 
+   return 0
+
+def BackTracking(n,coeff,rhs):
+   return 0
+
+def BackTrackingIterator(n,coeff,rhs):
+   return 0
