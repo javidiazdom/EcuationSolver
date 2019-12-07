@@ -17,5 +17,6 @@ if (re.search("([1-9]+[a-z]?[+-])*[1-9]+[a-z]+=[1-9]+",sys.argv[1])):
     print("Memoization",imp.Memoization(len(coeff)-1,list(reversed(coeff)),rhs))
     print("Brute Force",imp.BruteForce(len(coeff)-1,list(reversed(coeff)),rhs))
     print("Tabulation",imp.Tabulation(len(coeff)-1,list(reversed(coeff)),rhs))
+    print("Brute Force Iterativo",imp.BruteForceIterator(len(coeff)-1,list(reversed(coeff)),rhs));
 else:
     print("Bad parameter: The ecuation has not a valid format")
