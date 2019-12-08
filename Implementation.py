@@ -2,7 +2,14 @@ import math
 import itertools
 
 def BruteForce(n,coeff,rhs):
-   4
+   if (rhs == 0):
+      return 1
+   if (n < 0 or rhs < 0):
+      return 0
+   res = 0
+   for i in range(0,rhs+1):
+      res += BruteForce(n-1,coeff,rhs-i*coeff[n])
+   return res
 
 def Memoization(n,coeff,rhs):
    cache = {}
@@ -41,8 +48,6 @@ def Tabulation(n,coeff,rhs):
 
 def BruteForceIterator(n,coeff,rhs):
    def product(array, n):
-    # product('ABCD', 'xy') --> Ax Ay Bx By Cx Cy Dx Dy
-    # product(range(2), repeat=3) --> 000 001 010 011 100 101 110 111
     pools = [tuple(array)] * n
     result = [[]]
     for pool in pools:
