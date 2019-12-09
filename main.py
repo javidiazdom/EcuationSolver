@@ -2,10 +2,13 @@ import sys
 import re
 import Implementation as imp
 
+def missing():
+   print("Missing desired algorythm")
+
+algorythm = missing
+di, do, dt = (False,)*3
+
 def inlineEcuation():
-    if (len(sys.argv) > 2):
-        print("Error: Too many parameters. Needed: 1")
-        exit(1)
 
     if (re.search("([1-9]+[a-z]?[+-])*[1-9]+[a-z]+=[1-9]+",sys.argv[1])):
         matches = re.findall("[1-9]*[a-z]",sys.argv[1])
@@ -24,11 +27,11 @@ def switch(i):
       "-h":showHelp,
       "-di":displayInput,
       "-do":displayOutput,
-      "-dt":displaySeconds,
+      "-dt":displayTime,
       "-f":getFromFile
    }
    func=switcher.get(i,default)
-return func()
+   func()
 
 def default():
    print("Invoke error: bad parameter \n Type Main.py -h for help")
@@ -37,7 +40,7 @@ def default():
 def showHelp():
    file = open("./Help.txt","r")
    print(file.read())
-   exit()
+   exit(0)
 
 def displayInput():
    global di
@@ -49,5 +52,17 @@ def displayOutput():
    do = True
    sys.argv.pop(0)
 
+def displayTime():
+    global dt
+    dt = True
+    sys.argv.pop(0)
+
 def getFromFile():
-    
+    f = 0
+
+sys.argv.pop(0)
+while len(sys.argv)> 0:
+    switch(sys.argv[0])
+
+
+algorythm()
