@@ -1,16 +1,18 @@
 import math
-import itertools
 
 def BruteForce(n,coeff,rhs):
-   if (rhs == 0):
-      return 1
-   if (n < 0 or rhs < 0):
-      return 0
-   res = 0
-   for i in range(0,rhs+1):
-      res += BruteForce(n-1,coeff,rhs-i*coeff[n])
-   return res
-
+   rhsIni = rhs
+   def BruteForceAux (n,coeff,rhs):
+      if (rhs == 0):
+         return 1
+      if (n < 0):
+         return 0
+      res = 0
+      for i in range(0,rhsIni+1):
+         res += BruteForce(n-1,coeff,rhsIni-i*coeff[n])
+      return res
+   return BruteForceAux(n,coeff,rhs)
+   
 def Memoization(n,coeff,rhs):
    cache = {}
    def Memoization_aux(n,coeff,rhs):
@@ -46,30 +48,56 @@ def Tabulation(n,coeff,rhs):
             table[k][r] += accessTable(k-1,r - i*coeff[k-1])
    return table[n+1][rhs]
 
-def BruteForceIterator(n,coeff,rhs):
-   def product(array, n):
-    pools = [tuple(array)] * n
-    result = [[]]
-    for pool in pools:
-        result = [x+[y] for x in result for y in pool]
-    for prod in result:
-        yield tuple(prod)
-
-   validCombinations = 0
-   table = []
-   for i in range(0,rhs+1):
-      table.append(i)
-   for i in product(table,n+1):
-      res = 0
-      for k,j in zip(coeff,i):
-         res += k*j
-      if res == rhs:
-         validCombinations+=1
-   return validCombinations
-
 def BackTracking(n,coeff,rhs):
-   
+   if (rhs == 0):
+      return 1
+   if (n < 0 or rhs < 0):
+      return 0
+   res = 0
+   for i in range(0,rhs+1):
+      res += BruteForce(n-1,coeff,rhs-i*coeff[n])
    return res
 
 def BackTrackingIterator(n,coeff,rhs):
-   return 0
+   currentComb = [0] * (n+1)
+   nSolValidas = 0
+   while(currentComb[0]<rhs):
+      currentComb[n] += 1
+      for k in range(n,0,-1):
+         if (currentComb[k] > rhs):
+            currentComb[k] = 0
+            currentComb[k-1] += 1
+      
+      res = 0
+      c = 0
+      for i,j in zip(currentComb,coeff):
+         c+=1
+         res+= i*j
+         if (res > rhs):
+            break
+      if (res==rhs):
+         nSolValidas+=1
+      else:
+         if (c<len(coeff)):
+            currentComb[c]+=1
+
+   return nSolValidas
+
+def BruteForceIterator(n,coeff,rhs):
+   def isValidSolution(arr):
+      res = 0
+      for i,j in zip(arr,coeff):
+         res+= i*j
+      if res == rhs:
+         return 1
+      return 0
+   currentComb = [0] * (n+1)
+   nSolValidas = 0
+   for i in range (0,(rhs+1)**(n+1)-1):
+      currentComb[n] += 1
+      for k in range(n,0,-1):
+         if (currentComb[k] > rhs):
+            currentComb[k] = 0
+            currentComb[k-1] += 1
+      nSolValidas+= isValidSolution(currentComb)
+   return nSolValidas
