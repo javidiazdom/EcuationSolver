@@ -61,7 +61,7 @@ def BackTracking(n,coeff,rhs):
 def BackTrackingIterator(n,coeff,rhs):
    currentComb = [0] * (n+1)
    nSolValidas = 0
-   while(currentComb[0]<rhs):
+   while(currentComb[0]<=rhs):
       currentComb[n] += 1
       for k in range(n,0,-1):
          if (currentComb[k] > rhs):
@@ -69,21 +69,36 @@ def BackTrackingIterator(n,coeff,rhs):
             currentComb[k-1] += 1
       
       res = 0
-      c = 0
-      for i,j in zip(currentComb,coeff):
-         c+=1
-         res+= i*j
-         if (res > rhs):
+      c = len(coeff)
+      for i in range(len(coeff)-1,0,-1):
+         res+= coeff[i]*currentComb[i]
+         if (res >= rhs):
+            c = i
             break
       if (res==rhs):
          nSolValidas+=1
       else:
-         if (c<len(coeff)):
-            currentComb[c]+=1
+         if (c!=len(coeff)):
+            for t in range(c,len(currentComb)):
+               currentComb[t] = 0
+            currentComb[c-1]+=1
 
    return nSolValidas
 
 def BruteForceIterator(n,coeff,rhs):
+   class Combinations:
+      def __iter__(self):
+         self.currentComb = [0]*(n+1)
+         return self
+      def __next__(self):
+         self.currentComb[n] += 1
+         for k in range(n,0,-1):
+            if (self.currentComb[k] > rhs):
+               self.currentComb[k] = 0
+               self.currentComb[k-1] += 1
+         if self.currentComb[0] > rhs:
+               raise StopIteration
+         return self.currentComb
    def isValidSolution(arr):
       res = 0
       for i,j in zip(arr,coeff):
@@ -91,13 +106,8 @@ def BruteForceIterator(n,coeff,rhs):
       if res == rhs:
          return 1
       return 0
-   currentComb = [0] * (n+1)
+   combinations = Combinations()
    nSolValidas = 0
-   for i in range (0,(rhs+1)**(n+1)-1):
-      currentComb[n] += 1
-      for k in range(n,0,-1):
-         if (currentComb[k] > rhs):
-            currentComb[k] = 0
-            currentComb[k-1] += 1
-      nSolValidas+= isValidSolution(currentComb)
+   for currentComb in iter(combinations):
+      nSolValidas += isValidSolution(currentComb)
    return nSolValidas
