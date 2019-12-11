@@ -86,6 +86,8 @@ while len(sys.argv)> 0:
 if (di):
    for i,j in zip(coeffs,rhss):
       print(i,"=",j)
+print("\n------\n")
+
 
 for coef,rhs in zip(coeffs,rhss):
    start=time.time()
@@ -96,6 +98,8 @@ for coef,rhs in zip(coeffs,rhss):
    if (do):
       print("Numero de soluciones:",res)
 
+print("\n")
+
 for coef,rhs in zip(coeffs,rhss):
    start=time.time()
    res = imp.BruteForceIterator(len(coef)-1,coef,rhs)
@@ -104,6 +108,8 @@ for coef,rhs in zip(coeffs,rhss):
    print("------")
    if (do):
       print("Numero de soluciones:",res)
+
+print("\n")
 
 for coef,rhs in zip(coeffs,rhss):
    start=time.time()
@@ -114,6 +120,8 @@ for coef,rhs in zip(coeffs,rhss):
    if (do):
       print("Numero de soluciones:",res)
 
+print("\n")
+
 for coef,rhs in zip(coeffs,rhss):
    start=time.time()
    res = imp.Tabulation(len(coef)-1,coef,rhs)
@@ -122,6 +130,8 @@ for coef,rhs in zip(coeffs,rhss):
    print("------")
    if (do):
       print("Numero de soluciones:",res)
+   
+print("\n")
 
 for coef,rhs in zip(coeffs,rhss):
    start=time.time()
@@ -131,6 +141,8 @@ for coef,rhs in zip(coeffs,rhss):
    print("------")
    if (do):
       print("Numero de soluciones:",res)
+
+print("\n")
 
 for coef,rhs in zip(coeffs,rhss):
    start=time.time()

@@ -55,50 +55,31 @@ def BackTracking(n,coeff,rhs):
       return 0
    res = 0
    for i in range(0,rhs+1):
-      res += BruteForce(n-1,coeff,rhs-i*coeff[n])
+      res += BackTracking(n-1,coeff,rhs-i*coeff[n])
    return res
 
 def BackTrackingIterator(n,coeff,rhs):
-   currentComb = [0] * (n+1)
-   nSolValidas = 0
-   while(currentComb[0]<=rhs):
-      currentComb[n] += 1
-      for k in range(n,0,-1):
-         if (currentComb[k] > rhs):
-            currentComb[k] = 0
-            currentComb[k-1] += 1
-      
+   def isValidSolution(arr):
       res = 0
-      c = len(coeff)
-      for i in range(len(coeff)-1,0,-1):
-         res+= coeff[i]*currentComb[i]
-         if (res >= rhs):
-            c = i
+      p = 0
+      for i,j in zip(arr,coeff):
+         res+= i*j
+         if res > rhs:
             break
-      if (res==rhs):
-         nSolValidas+=1
-      else:
-         if (c!=len(coeff)):
-            for t in range(c,len(currentComb)):
-               currentComb[t] = 0
-            currentComb[c-1]+=1
-
+         p+=1
+      if res == rhs:
+         return 1
+      if res > rhs:
+         for i in range(p,n+1):
+            combinations.currentComb[i]=rhs
+      return 0
+   nSolValidas = 0
+   combinations = Combinations(rhs,n)
+   for currentComb in iter(combinations):
+      nSolValidas+=isValidSolution(currentComb)
    return nSolValidas
 
 def BruteForceIterator(n,coeff,rhs):
-   class Combinations:
-      def __iter__(self):
-         self.currentComb = [0]*(n+1)
-         return self
-      def __next__(self):
-         self.currentComb[n] += 1
-         for k in range(n,0,-1):
-            if (self.currentComb[k] > rhs):
-               self.currentComb[k] = 0
-               self.currentComb[k-1] += 1
-         if self.currentComb[0] > rhs:
-               raise StopIteration
-         return self.currentComb
    def isValidSolution(arr):
       res = 0
       for i,j in zip(arr,coeff):
@@ -106,8 +87,25 @@ def BruteForceIterator(n,coeff,rhs):
       if res == rhs:
          return 1
       return 0
-   combinations = Combinations()
+   combinations = Combinations(rhs,n)
    nSolValidas = 0
    for currentComb in iter(combinations):
       nSolValidas += isValidSolution(currentComb)
    return nSolValidas
+
+class Combinations:
+   def __init__(self,rhs,n):
+      self.rhs=rhs
+      self.n=n
+   def __iter__(self):
+      self.currentComb = [0]*(self.n+1)
+      return self
+   def __next__(self):
+      self.currentComb[self.n] += 1
+      for k in range(self.n,0,-1):
+         if (self.currentComb[k] > self.rhs):
+            self.currentComb[k] = 0
+            self.currentComb[k-1] += 1
+      if self.currentComb[0] > self.rhs:
+            raise StopIteration
+      return self.currentComb
