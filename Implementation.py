@@ -1,5 +1,3 @@
-import math
-
 def BruteForce(n,coeff,rhs):
    rhsIni = rhs
    def BruteForceAux (n,coeff,rhs):

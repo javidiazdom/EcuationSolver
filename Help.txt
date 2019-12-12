@@ -1,1 +1,28 @@
-This is the help file.
+Modo de empleo: python3 main.py [OPCIÓN]...[ARCHIVO]|[ECUACIÓN]
+Programa que calcula todos las soluciones de una
+ecuación de N variables.
+
+    -do             muestra el número de soluciones
+    -di             muestra los coeficientes y el término
+                    independiente
+    -dt             muestra el tiempo total que tarda 
+                    cada una de las estrategias de resolución
+    -ec [ECUACIÓN]  permite calcular las soluciones de la ecuación
+                    pasada como parámetro. Ver formato de ECUACIÓN
+
+    -f [ARCHIVO]    pertmite utilizar un fichero con los valores de 
+                    entrada. Ver formato del fichero
+
+FORMATO DE LA ECUACIÓN
+La ecuación debe de ser expresada con la siguiente sintaxis:
+ax+by+cz+...+mn=K
+donde a,b,c... deben ser números, y x,y,z... deben ser letras. 
+Además K será el término independiente.
+
+FORMATO DEL ARCHIVO
+El archivo deberá de contener una secuencia con la siguiente 
+estructura
+a,b,c,d,...,n=K
+donde a,b,c,d... serán los coeficientes de la ecuación,
+mientras que K será el término independiente.
+

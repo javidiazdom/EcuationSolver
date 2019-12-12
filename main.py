@@ -86,8 +86,7 @@ while len(sys.argv)> 0:
 if (di):
    for i,j in zip(coeffs,rhss):
       print(i,"=",j)
-print("\n------\n")
-
+   print("\n------\n")
 
 for coef,rhs in zip(coeffs,rhss):
    start=time.time()
