@@ -7,11 +7,20 @@ ecuación de N variables.
                     independiente
     -dt             muestra el tiempo total que tarda 
                     cada una de las estrategias de resolución
+    -o [MÉTODO]     elige los métodos con el que se obtendrá el resultado.
+                    0 = BruteForce
+                    1 = BruteForceIterator
+                    2 = Memoization
+                    3 = Tabulation
+                    4 = Backtracking
+                    5 = BacktrackingIterator
+                    si no se especifica esta opción se ejecutarán todos los métodos.
     -ec [ECUACIÓN]  permite calcular las soluciones de la ecuación
                     pasada como parámetro. Ver formato de ECUACIÓN
 
     -f [ARCHIVO]    pertmite utilizar un fichero con los valores de 
                     entrada. Ver formato del fichero
+
 
 FORMATO DE LA ECUACIÓN
 La ecuación debe de ser expresada con la siguiente sintaxis:
